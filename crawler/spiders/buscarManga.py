@@ -4,6 +4,7 @@ import requests
 import os
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
+from scrapy.pipelines.images import ImagesPipeline
 # concurrent
 # scrapy crawl buscarManga -s HTTPCACHE_ENABLED=1
 
