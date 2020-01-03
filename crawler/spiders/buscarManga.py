@@ -40,8 +40,8 @@ class BuscarmangaSpider(CrawlSpider):
     def parse_new(self, response):
         img_urls = []
         [img_urls.append(link) for link in response.css('img.img-responsive::attr("src")').getall()]
-        # import ipdb; ipdb.set_trace()
         for img in img_urls:
+            img = img.replace('>','').replace('<','')
             yield scrapy.Request(
                 response.urljoin(img),
                 callback=self.download
