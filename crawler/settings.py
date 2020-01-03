@@ -13,7 +13,3 @@ BOT_NAME = 'crawler'
 SPIDER_MODULES = ['crawler.spiders']
 NEWSPIDER_MODULE = 'crawler.spiders'
 ROBOTSTXT_OBEY = True
-
-ITEM_PIPELINES = {'crawler.pipelines.images.ImagesPipeline': 1}
-
-IMAGES_STORE = '/tmp_images'

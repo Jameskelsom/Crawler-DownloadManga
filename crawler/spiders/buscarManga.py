@@ -4,7 +4,6 @@ import requests
 import os
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
-from scrapy.pipelines.images import ImagesPipeline
 # concurrent
 # scrapy crawl buscarManga -s HTTPCACHE_ENABLED=1
 
@@ -39,11 +38,16 @@ class BuscarmangaSpider(CrawlSpider):
             )
 
     def parse_new(self, response):
-        pages = []
-        [pages.append(link) for link in response.css('img.img-responsive::attr("src")').getall()]
-        for page in pages:
-            trt = page.lower().find(self.txt)
-            mangaImg = page[trt:].replace('/','-').replace('https:--','')
-            import ipdb; ipdb.set_trace()
-            with open(self.manga +"/" + mangaImg, 'wb') as f:
-                f.write(response.content)
+        img_urls = []
+        [img_urls.append(link) for link in response.css('img.img-responsive::attr("src")').getall()]
+        # import ipdb; ipdb.set_trace()
+        for img in img_urls:
+            yield scrapy.Request(
+                response.urljoin(img),
+                callback=self.download
+            )
+    def download(self,response):
+        trt = response.url.lower().find(self.txt.replace(' ','%20'))
+        mangaImg = response.url[trt:].replace('/','-').replace('https:--','').replace('%20','_')
+        with open(self.manga +"/" + mangaImg, 'wb') as f:
+            f.write(response.body)
