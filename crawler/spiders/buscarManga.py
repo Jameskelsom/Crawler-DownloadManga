@@ -44,7 +44,7 @@ class BuscarmangaSpider(CrawlSpider):
             img = img.replace('>','').replace('<','')
             yield scrapy.Request(
                 response.urljoin(img),
-                callback=self.download
+                callback=self.download #Função de download das imagens
             )
     def download(self,response):
         trt = response.url.lower().find(self.txt.replace(' ','%20'))
