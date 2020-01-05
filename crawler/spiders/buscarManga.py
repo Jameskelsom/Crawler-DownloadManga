@@ -9,7 +9,7 @@ from scrapy.linkextractors import LinkExtractor
 
 
 class BuscarmangaSpider(CrawlSpider):
-    name = 'buscarManga'
+    name = 'buscarManga' #nome da spider
     txt = str(input('Digite o nome do manga: '))
     manga = txt.replace(' ', '-').lower()
     allowed_domains = ['unionleitor.top']
@@ -47,7 +47,7 @@ class BuscarmangaSpider(CrawlSpider):
                 callback=self.download #Função de download das imagens
             )
     def download(self,response):
-        trt = response.url.lower().find(self.txt.replace(' ','%20'))
+        trt = response.url.lower().find(self.txt.replace(' ','%20')) #tratamento de dados
         mangaImg = response.url[trt:].replace('/','-').replace('https:--','').replace('%20','_')
         with open(self.manga +"/" + mangaImg, 'wb') as f:
             f.write(response.body)
