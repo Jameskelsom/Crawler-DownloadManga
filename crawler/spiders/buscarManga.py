@@ -7,7 +7,6 @@ from scrapy.linkextractors import LinkExtractor
 # concurrent
 # scrapy crawl buscarManga -s HTTPCACHE_ENABLED=1
 
-
 class BuscarmangaSpider(CrawlSpider):
     name = 'buscarManga' #nome da spider
     txt = str(input('Digite o nome do manga: '))
@@ -25,7 +24,7 @@ class BuscarmangaSpider(CrawlSpider):
         else:
             try:
                 os.mkdir(manga)
-            except:
+            except FileExistsError:
                 pass
 
             rules = (
