@@ -27,7 +27,7 @@ class BuscarmangaSpider(CrawlSpider):
             except FileExistsError:
                 pass
 
-            rules = (
+            rules = ( #regras
                 Rule(
                     LinkExtractor(
                         restrict_xpaths=(
