@@ -9,8 +9,8 @@ from scrapy.linkextractors import LinkExtractor
 
 class BuscarmangaSpider(CrawlSpider):
     name = 'buscarManga' #nome da spider
-    txt = str(input('Digite o nome do manga: '))
-    manga = txt.replace(' ', '-').lower()
+    txt = str(input('Digite o nome do manga: ')) 
+    manga = txt.replace(' ', '-').lower() #tratamento da string
     allowed_domains = ['unionleitor.top']
     start_urls = [f'https://unionleitor.top/manga/{manga}']
     base_urls = ['https://unionleitor.top/z']
